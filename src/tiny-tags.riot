@@ -1,0 +1,139 @@
+<tiny-tags>
+    <div class="tiny-tags">
+        <select name="{ state.options.name }[]" multiple style="display: none;">
+            <option each={ tag in state.tags } value={ tag }></option>
+        </select>
+        <ul class="tiny-tags__list">
+            <li class="tiny-tags__item" each={ tag in state.tags }>
+                <span class="tiny-tags__label">{ tag }</span>
+                <button class="tiny-tags__button tiny-tags__button--remove" type="button" onclick={ () => {  handleRemove(tag) } }>
+                    <raw html={ state.options.svg.remove } />
+                </button>
+            </li>
+            <li class="tiny-tags__item tiny-tags__item--add">
+                <input class="tiny-tags__input" type="text" onkeypress={ handleKeyup } />
+                <button class="tiny-tags__button tiny-tags__button--add" type="button" onclick={ handleAdd }>
+                    <raw html={ state.options.svg.add } />
+                </button>
+            </li>
+        </ul>
+    </div>
+    <script>
+
+        import * as riot from 'riot';
+        import Raw from './raw.riot';
+
+        riot.register('raw', Raw);
+
+        export default {
+
+            state: {
+                options: {
+                    name: 'tags',
+                    svg: {
+                        add: '<svg class="icon"><use xlink:href="#icon-add" /></svg>',
+                        remove: '<svg class="icon"><use xlink:href="#icon-remove" /></svg>'
+                    },
+                    separator: ','
+                },
+                tags: [ ]
+            },
+
+            /**
+             *
+             *
+             */
+            onBeforeMount() {
+
+                // if props.tags is set and it is not a array, split it with a
+                // separator and add to tags
+                if (this.props.tags) {
+
+                    let tags = this.props.tags;
+
+                    if (!Array.isArray(tags)) {
+                        tags = tags.split(this.state.options.separator);
+                    }
+
+                    this.state.tags = tags;
+                }
+
+                if (this.props.options) {
+                    this.state.options = Object.assign(this.state.options, this.props.options);
+                }
+            },
+
+            /**
+             *  check if "return" has pressed,
+             *  if trigger click event for button
+             *
+             *  @param  Object event
+             *
+             */
+            handleKeyup(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+
+                    // trigger to add tag
+                    this.$('.tiny-tags__button--add').click();
+                }
+            },
+
+            /**
+             *  remove tag
+             *
+             *
+             *  @param  String tag
+             *
+             */
+            handleRemove(tag) {
+                for (let i = 0; i < this.state.tags.length; i++) {
+                    if (this.state.tags[i] === tag) {
+                        this.state.tags.splice(i, 1);
+                        this.update();
+                        break;
+                    }
+                }
+
+                this.$('input').focus();
+            },
+
+            /**
+             *  adding tag, check if string already exists
+             *
+             *
+             *  @param  Object event
+             *
+             */
+            handleAdd(event) {
+
+                let inArray = false;
+
+                // delete whitespace
+                let value = this.$('input').value.trim();
+
+                // check if value already in data
+                for (let i = 0; i < this.state.tags.length; i++) {
+                    if (value === this.state.tags[i]) {
+                        inArray = true;
+                        break;
+                    }
+                }
+
+                // if value is not already in data and longer than zero chars
+                if (inArray === false && value.length > 0) {
+                    this.state.tags.push(value)
+                    this.update();
+
+                    // select new option
+                    this.$('select option[value="' + value + '"]').selected = true;
+                    this.$('input').value = '';
+                }
+
+                // adding focus to input
+                this.$('input').focus();
+            }
+        }
+
+    </script>
+</tiny-tags>

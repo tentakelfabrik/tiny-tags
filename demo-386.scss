@@ -1,0 +1,171 @@
+@import 'src/assets/fonts/stylesheet.css';
+@import 'src/assets/icomoon/style.css';
+
+/**
+ * variables
+ *
+ */
+
+$text-color: #fff;
+
+$link-color: #fefe5b;
+$link-background-color: #008106;
+$background-color: #000084;
+$background-contrast-color: #bbbbbb;
+
+$color__text: #bbbbbb;
+$color__secondary: #00aaaa;
+
+/**
+ * default elements
+ *
+ */
+
+body {
+    color: $text-color;
+    background-color: black;
+    font-family: 'PxPlus IBM VGA8', sans-serif;
+    font-style: normal;
+    font-size: 1.2rem;
+    line-height: 1.3;
+}
+
+a {
+    text-decoration: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 18px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.site-header {
+    padding: 20px 20px;
+    margin: 20px 0 20px;
+    color: #000;
+    background: $color__secondary;
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+    }
+}
+
+.icon {
+    width: 0.7em;
+    height: 0.7em;
+    color: white;
+}
+
+.vertical-align-sub {
+    vertical-align: sub;
+}
+
+main {
+    padding: 50px 0;
+    background: $background-color;
+}
+
+blockquote {
+    padding: 0 0 0 15px;
+    margin: 0 0 20px;
+    border-left: 5px solid #bbbbbb;
+}
+
+/**
+ * footer
+ *
+ *
+ */
+
+footer {
+    text-align: center;
+    font-size: 1.4rem;
+    width: 100%;
+    height: 100%;
+
+    padding: 0.8em 0;
+
+    .icon {
+        width: 1.2em;
+        height: 1.2em;
+    }
+}
+
+/**
+ *
+ *
+ *
+ */
+
+.hero {
+    padding: 16px 20.8px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 20px;
+    color: #ffffff;
+    background-color: #00aaaa;
+    border: 4px double #ffffff;
+    border-radius: 0;
+    box-shadow: 0 0 0 4px #00aaaa;
+    margin: 0 4px 20px;
+
+    .icon {
+        width: 1em;
+        height: 1em;
+    }
+}
+
+
+/**
+ * tiny-tags
+ *
+ *
+ */
+
+.tiny-tags {
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__item {
+        display: inline-block;
+        border: 1px solid #ddd;
+        background: #bbbbbb;
+        margin: 0 0.3em 0.3em 0;
+    }
+
+    &__label, &__input {
+        padding: 0.2em 0.4em;
+    }
+
+    &__input {
+        border: 0;
+        width: 100px;
+        background: transparent;
+        color: white;
+    }
+
+    &__label {
+        display: inline-block;
+    }
+
+    &__button {
+        appearance: none;
+        border: 0;
+        padding: 0.3em 0.4em;
+        background: none;
+    }
+
+    .icon {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
